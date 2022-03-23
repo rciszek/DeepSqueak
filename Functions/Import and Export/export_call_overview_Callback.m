@@ -2,12 +2,8 @@ function export_call_overview_Callback(hObject, eventdata, handles)
 
 [file,path] = uigetfile('*.mat','Select One or More Files','MultiSelect', 'on');
 
-prompt = {'Enter matrix size:','Enter colormap name:'};
-dlgtitle = 'Input';
-dims = [1 25];
-definput = {'20','hsv'};
 answer = inputdlg({'Image width (in)', 'Image height (in)', 'Number of columns', 'dpi', 'Axis label size'}...
-    ,'Settings',[1 30],{'6','6','5','1000', '12'});
+    ,'Settings',[1 30],{'6.5','6.5','5','1000', '12'});
 
 answer = cellfun(@(x) str2num(x),answer);
 image_width = answer(1);
@@ -46,6 +42,7 @@ Clim = get(handles.focusWindow,'Clim');
 spectograms = cell(1,n_calls);
 n_rows = ceil(n_calls/n_columns);
 fig = figure('visible','off');
+
 tiled_layout = tiledlayout(n_rows,n_columns,'TileSpacing', 'none', 'Padding', 'none');
 
 h = [];
@@ -136,6 +133,10 @@ end
 
 cbh = colorbar(h(end)); 
 cbh.Layout.Tile = 'east'; 
+
+
+cbh.Label.String = 'Amplitude (dB)';
+cbh.Label.FontSize = axis_label_size;
 
 tiled_layout.XLabel.String = 'Time (ms)';
 tiled_layout.XLabel.FontSize = axis_label_size;
